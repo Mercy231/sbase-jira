@@ -1,0 +1,24 @@
+.post {
+    background-color: gray;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 3px;
+    max-width: 900px;
+}
+.comment-footer {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+.comments {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+.comment {
+    background-color: #4a5568;
+    margin: 0 20px 0 20px;
+    padding: 10px;
+    color: white;
+}

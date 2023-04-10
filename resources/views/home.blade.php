@@ -13,6 +13,7 @@
             <p>Your email is not verified!</p>
             <a href="/email/verification-notification">Verification mail resend</a>
         @endif
+        <h2><a href="/posts">All posts</a></h2>
     @else
         <h1><a href="/login">Login</a> | <a href="/register">Register</a></h1>
     @endif
