@@ -48,24 +48,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts', [PostController::class, 'showPosts'])
         ->name('posts');
 
-    Route::get('/post-create', function () {
-        return view('post-create');
-    });
-    Route::post('/post-create', [PostController::class, 'createPost']);
+    Route::post('/post/create', [PostController::class, 'create']);
+    Route::patch('/post/{id}', [PostController::class, 'update']);
+    Route::delete('/post/{id}', [PostController::class, 'destroy']);
 
-    Route::get('/post-edit/{id}', [PostController::class, 'editPostShow']);
-    Route::post('/post-edit/{id}', [PostController::class, 'editPost']);
-
-    Route::get('/post-delete/{id}', [PostController::class, 'deletePost']);
-
-    Route::get('/comment-create/{id}', [CommentController::class, 'createCommentShow']);
-    Route::post('/comment-create/{id}', [CommentController::class, 'createComment']);
-
-    Route::get('/comment-edit/{id}', [CommentController::class, 'editCommentShow']);
-    Route::post('/comment-edit/{id}', [CommentController::class, 'editComment']);
-
-    Route::get('/comment-delete/{id}', [CommentController::class, 'deleteComment']);
+    Route::post('/comment/create', [CommentController::class, 'create']);
+    Route::patch('/comment/{id}', [CommentController::class, 'update']);
+    Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
 });
+
+Route::get('/test/posts', [PostController::class, 'test_show']);
+Route::post('/test/post/add', [PostController::class, 'post_add']);
 
 Route::get('/home', function () {
     return view('home');

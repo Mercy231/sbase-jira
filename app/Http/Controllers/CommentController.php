@@ -10,57 +10,45 @@ use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
-    public function createCommentShow ($id)
-    {
-        return view('comment-create')->with(['id' => $id]);
-    }
-    public function createComment ($id, Request $request)
+    public function create (Request $request)
     {
         $fields = $request->only('text');
         $validator = Validator::make( $fields, [
             'text' => 'required|min:1',
         ]);
         if ($validator->stopOnFirstFailure()->fails()) {
-            return back()->withErrors(['error' => $validator->errors()->first()]);
+            return response()->json(['success' => false, 'error' => $validator->errors()->first()]);
         }
-        Comment::create([
-            'post_id' => $id,
+        $comment = Comment::create([
+            'post_id' => $request->id,
             'user_id' => Auth::user()->id,
             'text' => $request->text,
         ]);
-        return redirect('posts');
+        $html = view('components.comment')->with(['comment' => $comment])->render();
+        return response()->json(['success' => true, 'html' => $html]);
     }
-    public function editCommentShow ($id)
-    {
-        $comment = Comment::find($id);
-        if (Auth::user()->id == $comment->user_id) {
-            return view('comment-edit')->with(['comment' => $comment]);
-        } else {
-            return back();
-        }
-    }
-    public function editComment ($id, Request $request)
+    public function update ($id, Request $request)
     {
         $fields = $request->only('text');
         $validator = Validator::make( $fields, [
             'text' => 'required|min:1',
         ]);
         if ($validator->stopOnFirstFailure()->fails()) {
-            return back()->withErrors(['error' => $validator->errors()->first()]);
+            return response()->json(['success' => false, 'error' => $validator->errors()->first()]);
         }
-        Comment::find($id)->update([
+        $comment = Comment::find($id)->update([
             'text' => $request->text,
         ]);
-        return redirect('posts');
+        return response()->json(['success' => true, 'comment' => $comment]);
     }
-    public function deleteComment ($id)
+    public function destroy ($id)
     {
         $comment = Comment::find($id);
         if (Auth::user()->id == $comment->user_id) {
             $comment->delete();
-            return redirect('/posts');
+            return response()->json(['success' => true]);
         } else {
-            return back();
+            return response()->json(['success' => false]);
         }
     }
 }

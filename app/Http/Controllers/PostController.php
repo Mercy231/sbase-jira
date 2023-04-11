@@ -15,7 +15,7 @@ class PostController extends Controller
     {
         return view('posts', ['posts' => Post::latest()->get()]);
     }
-    public function createPost (Request $request)
+    public function create (Request $request)
     {
         $fields = $request->only('title', 'text');
         $validator = Validator::make( $fields, [
@@ -23,25 +23,17 @@ class PostController extends Controller
             'text' => 'required|min:1'
         ]);
         if ($validator->stopOnFirstFailure()->fails()) {
-            return back()->withErrors(['error' => $validator->errors()->first()]);
+            return response()->json(['success' => false, 'error' => $validator->errors()->first()]);
         }
-        Post::create([
+        $post = Post::create([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
             'text' => $request->text,
         ]);
-        return redirect('posts');
+        $html = view('components.post')->with(['post' => $post])->render();
+        return response()->json(['success' => true, 'html' => $html]);
     }
-    public function editPostShow ($id)
-    {
-        $post = Post::find($id);
-        if (Auth::user()->id == $post->user_id) {
-            return view('post-edit')->with(['post' => $post]);
-        } else {
-            return back();
-        }
-    }
-    public function editPost ($id, Request $request)
+    public function update ($id, Request $request)
     {
         $fields = $request->only('title', 'text');
         $validator = Validator::make( $fields, [
@@ -49,22 +41,22 @@ class PostController extends Controller
             'text' => 'required|min:1'
         ]);
         if ($validator->stopOnFirstFailure()->fails()) {
-            return back()->withErrors(['error' => $validator->errors()->first()]);
+            return response()->json(['success' => false, 'error' => $validator->errors()->first()]);
         }
-        Post::find($id)->update([
+        $post = Post::find($id)->update([
             'title' => $request->title,
             'text' => $request->text,
         ]);
-        return redirect('posts');
+        return response()->json(['success' => true, 'post' => $post]);
     }
-    public function deletePost ($id)
+    public function destroy ($id)
     {
         $post = Post::find($id);
         if (Auth::user()->id == $post->user_id) {
            $post->delete();
-            return redirect('/posts');
+            return response()->json(['success' => true]);
         } else {
-            return back();
+            return response()->json(['success' => false]);
         }
     }
 }
