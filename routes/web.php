@@ -57,9 +57,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
 });
 
-Route::get('/test/posts', [PostController::class, 'test_show']);
-Route::post('/test/post/add', [PostController::class, 'post_add']);
-
 Route::get('/home', function () {
     return view('home');
 });

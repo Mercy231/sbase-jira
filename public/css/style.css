@@ -2,8 +2,9 @@
     background-color: gray;
     margin: 5px;
     padding: 10px;
-    border-radius: 3px;
+    border-radius: 10px;
     max-width: 900px;
+    border: solid crimson 4px;
 }
 .comment-footer {
     display: flex;
@@ -25,4 +26,9 @@
 .btn {
     padding: 10px;
     background-color: lightblue;
+}
+#posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }

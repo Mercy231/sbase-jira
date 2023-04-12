@@ -12,5 +12,7 @@
 </head>
 <body>
     @yield('body')
+    <script src="./public/js/post.js"></script>
+    <script src="./public/js/comment.js"></script>
 </body>
 </html>
