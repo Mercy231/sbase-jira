@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DropDownController;
 use App\Http\Controllers\ParseController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ScraperController;
@@ -23,9 +24,11 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware([CheckAuth::class])->group(function () {
-    Route::get('/register', function () {
-        return view('register', ['error' => '']);
-    });
+    Route::get('/register', [DropDownController::class, 'index']);
+    Route::post('/register/getStates', [DropDownController::class, 'getStates']);
+    Route::post('/register/getCities', [DropDownController::class, 'getCities']);
+
+
     Route::post('/register', [UserController::class, 'register']);
 
     Route::get('/login', function () {

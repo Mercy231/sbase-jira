@@ -15,5 +15,6 @@
     <script src="./public/js/post.js"></script>
     <script src="./public/js/comment.js"></script>
     <script src="./public/js/autoria.js"></script>
+    <script src="./public/js/register.js"></script>
 </body>
 </html>

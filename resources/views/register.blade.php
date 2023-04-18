@@ -23,6 +23,22 @@
             <input name="password_confirmation" type="password">
         </div>
         <div>
+            <div>
+                <select id="country-dd" name="country">
+                    <option value="0">--Select Country--</option>
+                    @foreach($countries as $country)
+                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <select id="state-dd" name="state"></select>
+            </div>
+            <div>
+                <select id="city-dd" name="city"></select>
+            </div>
+        </div>
+        <div>
             <button type="submit">Register</button>
         </div>
     </form>
