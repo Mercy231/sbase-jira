@@ -32,3 +32,18 @@
     flex-direction: column;
     gap: 20px;
 }
+.car-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: solid red 1px;
+}
+.filter {
+    padding: 20px;
+    background-color: orange;
+    max-width: 300px;
+    border-radius: 20px;
+}

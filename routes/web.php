@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ParseController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ScraperController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAuth;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/comment/create', [CommentController::class, 'create']);
     Route::patch('/comment/{id}', [CommentController::class, 'update']);
     Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
+
+    Route::get('/autoria', [ScraperController::class, 'index']);
+    Route::post('/autoria', [ScraperController::class, 'search']);
 });
 
 Route::get('/home', function () {
