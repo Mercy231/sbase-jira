@@ -14,6 +14,8 @@ class Post extends Model
         'user_id',
         'title',
         'text',
+        'title_ru',
+        'text_ru'
     ];
 
     protected $with = [

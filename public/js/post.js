@@ -2,6 +2,24 @@ $(".post-create-btn").click(createPost)
 $(".post-edit-btn").click(showUpdatePost)
 $(".post-delete-btn").click(destroyPost)
 
+$('#post-create-lang').change(function () {
+    switch ($('#post-create-lang').val()) {
+        case 'en':
+            $('#post-create-title-ru').attr('hidden', true)
+            $('#post-create-title').attr('hidden', false)
+            $('#post-create-text-ru').attr('hidden', true)
+            $('#post-create-text').attr('hidden', false)
+            break
+        case 'ru':
+            $('#post-create-title').attr('hidden', true)
+            $('#post-create-title-ru').attr('hidden', false)
+            $('#post-create-text').attr('hidden', true)
+            $('#post-create-text-ru').attr('hidden', false)
+            break
+        default:
+            break
+    }
+})
 function createPost () {
     $.ajax({
         url: '/post/create',
@@ -10,7 +28,9 @@ function createPost () {
         data: {
             "_token": $('meta[name="csrf-token"]').attr('content'),
             title: $("#post-create-title").val(),
+            titleRu: $("#post-create-title-ru").val(),
             text: $("#post-create-text").val(),
+            textRu: $("#post-create-text-ru").val(),
         },
         success: function(response){
             if (response.success) {

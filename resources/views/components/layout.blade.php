@@ -11,10 +11,17 @@
     <link rel="stylesheet" href="./public/css/style.css">
 </head>
 <body>
+    <div class="header">
+        <select name="lang" id="lang">
+            <option value="ru" @if(session()->get('locale') == 'ru') selected @endif>{{ __('messages.russian') }}</option>
+            <option value="en" @if(session()->get('locale') == 'en') selected @endif>{{ __('messages.english') }}</option>
+        </select>
+    </div>
     @yield('body')
     <script src="./public/js/post.js"></script>
     <script src="./public/js/comment.js"></script>
     <script src="./public/js/autoria.js"></script>
     <script src="./public/js/register.js"></script>
+    <script src="./public/js/lang.js"></script>
 </body>
 </html>

@@ -17,10 +17,12 @@ class PostController extends Controller
     }
     public function create (Request $request)
     {
-        $fields = $request->only('title', 'text');
+        $fields = $request->only('title', 'text', 'titleRu', 'textRu');
         $validator = Validator::make( $fields, [
             'title' => 'required|min:3',
-            'text' => 'required|min:1'
+            'text' => 'required|min:1',
+            'titleRu' => 'required|min:3',
+            'textRu' => 'required|min:1'
         ]);
         if ($validator->stopOnFirstFailure()->fails()) {
             return response()->json(['success' => false, 'error' => $validator->errors()->first()]);
@@ -29,6 +31,8 @@ class PostController extends Controller
             'user_id' => Auth::user()->id,
             'title' => $request->title,
             'text' => $request->text,
+            'title_ru' => $request->titleRu,
+            'text_ru' => $request->textRu,
         ]);
         $html = view('components.post')->with(['post' => $post])->render();
         return response()->json(['success' => true, 'html' => $html]);

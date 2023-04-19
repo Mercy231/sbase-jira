@@ -8,12 +8,28 @@ use App\Models\State;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    public function index ()
+    {
+        $countries = Country::get(['name','id']);
+        return view('register', ['countries' => $countries, 'error' => '']);
+    }
+    public function getStates (Request $request)
+    {
+        $states = State::where('country_id', '=', $request->country_id)->get(['name','id']);
+        return response()->json(['success' => true, 'states' => $states]);
+    }
+    public function getCities (Request $request)
+    {
+        $cities = City::where('state_id', '=', $request->state_id)->get(['name','id']);
+        return response()->json(['success' => true, 'cities' => $cities]);
+    }
     public function register (Request $request)
     {
         $credentials = $request->only('email', 'password', 'password_confirmation');
@@ -71,5 +87,11 @@ class UserController extends Controller
             return view('login', $response);
         }
         return redirect('home');
+    }
+    public function changeLang (Request $request)
+    {
+        App::setLocale($request->lang);
+        session()->put('locale', $request->lang);
+        return response()->json(["success" => true, "lang" => $request->lang]);
     }
 }

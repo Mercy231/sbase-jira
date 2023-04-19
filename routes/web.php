@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ScraperController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAuth;
+use App\Http\Middleware\LanguageManager;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -24,11 +25,9 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware([CheckAuth::class])->group(function () {
-    Route::get('/register', [DropDownController::class, 'index']);
-    Route::post('/register/getStates', [DropDownController::class, 'getStates']);
-    Route::post('/register/getCities', [DropDownController::class, 'getCities']);
-
-
+    Route::get('/register', [UserController::class, 'index']);
+    Route::post('/register/getStates', [UserController::class, 'getStates']);
+    Route::post('/register/getCities', [UserController::class, 'getCities']);
     Route::post('/register', [UserController::class, 'register']);
 
     Route::get('/login', function () {
@@ -49,7 +48,7 @@ Route::get('/email/verification-notification', function () {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->middleware(LanguageManager::class)->group(function () {
     Route::get('/posts', [PostController::class, 'showPosts'])
         ->name('posts');
 
@@ -63,6 +62,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/autoria', [ScraperController::class, 'index']);
     Route::post('/autoria', [ScraperController::class, 'search']);
+
+    Route::post("/changeLang", [UserController::class, "changeLang"]);
 });
 
 Route::get('/home', function () {
