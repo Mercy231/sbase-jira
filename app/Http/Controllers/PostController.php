@@ -27,12 +27,20 @@ class PostController extends Controller
         if ($validator->stopOnFirstFailure()->fails()) {
             return response()->json(['success' => false, 'error' => $validator->errors()->first()]);
         }
+
+        $title = json_encode([
+            'en' => $request->title,
+            'ru' => $request->titleRu,
+        ], JSON_UNESCAPED_UNICODE);
+        $text = json_encode([
+            'en' => $request->text,
+            'ru' => $request->textRu,
+        ], JSON_UNESCAPED_UNICODE);
+
         $post = Post::create([
             'user_id' => Auth::user()->id,
-            'title' => $request->title,
-            'text' => $request->text,
-            'title_ru' => $request->titleRu,
-            'text_ru' => $request->textRu,
+            'title' => $title,
+            'text' => $text,
         ]);
         $html = view('components.post')->with(['post' => $post])->render();
         return response()->json(['success' => true, 'html' => $html]);

@@ -1,18 +1,10 @@
 <div id="{{ $post->id }}" class="post">
     <div>
         <h3>{{ $post->user->email }}</h3>
-        @if(session()->get('locale') == 'ru')
-            <h2 class="title">{{ $post->title_ru }}</h2>
-        @else
-            <h2 class="title">{{ $post->title }}</h2>
-        @endif
+        <h2 class="title">{{ $post->title }}</h2>
     </div>
     <div>
-        @if(session()->get('locale') == 'ru')
-            <p class="text">{{ $post->text_ru }}</p>
-        @else
-            <p class="text">{{ $post->text }}</p>
-        @endif
+        <p class="text">{{ $post->text }}</p>
     </div>
     <div>
         @if($post->user_id == Auth::user()->id)

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Post extends Model
 {
@@ -30,5 +31,15 @@ class Post extends Model
     public function comment ()
     {
         return $this->hasMany(Comment::class)->latest();
+    }
+    public function getTitleAttribute($value)
+    {
+        $locale = App::getLocale();
+        return json_decode($value)->$locale;
+    }
+    public function getTextAttribute($value)
+    {
+        $locale = App::getLocale();
+        return json_decode($value)->$locale;
     }
 }

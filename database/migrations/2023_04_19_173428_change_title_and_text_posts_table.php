@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->string('title_ru')->after('title')->nullable()->default(null);
-            $table->string('text_ru')->after('text')->nullable()->default(null);
+            $table->json('title')->change();
+            $table->json('text')->change();
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('text_ru');
-            $table->dropColumn('title_ru');
+            $table->string('title')->change();
+            $table->string('text')->change();
         });
     }
 };
