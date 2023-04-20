@@ -9,13 +9,13 @@
 .comment-footer {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    justify-content: space-between;
 }
 .comments {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 30px;
+    margin-top: 2px;
 }
 .comment {
     background-color: #4a5568;
@@ -46,4 +46,12 @@
     background-color: orange;
     max-width: 300px;
     border-radius: 20px;
+}
+.comment-reply {
+    background-color: #4a5568;
+    margin: 0 20px 0 50px;
+    padding: 10px;
+    color: white;
+    border: solid limegreen 2px;
+    border-radius: 10px;
 }

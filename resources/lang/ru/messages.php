@@ -10,4 +10,5 @@ return [
     'english' => 'Английский',
     'russian' => 'Русский',
     'create_comment_title' => 'Создать новый комментарий',
+    'create_reply_title' => 'Создать ответ',
 ];

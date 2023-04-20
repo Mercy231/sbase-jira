@@ -10,4 +10,5 @@ return [
     'english' => 'English',
     'russian' => 'Russian',
     'create_comment_title' => 'Create new comment',
+    'create_reply_title' => 'Create Reply',
 ];

@@ -1,9 +1,8 @@
 <?php
 
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\DropDownController;
-use App\Http\Controllers\ParseController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ScraperController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAuth;
@@ -59,6 +58,8 @@ Route::middleware('auth')->middleware(LanguageManager::class)->group(function ()
     Route::post('/comment/create', [CommentController::class, 'create']);
     Route::patch('/comment/{id}', [CommentController::class, 'update']);
     Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
+
+    Route::post('/reply/create', [ReplyController::class, 'create']);
 
     Route::get('/autoria', [ScraperController::class, 'index']);
     Route::post('/autoria', [ScraperController::class, 'search']);

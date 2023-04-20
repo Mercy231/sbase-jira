@@ -1,6 +1,7 @@
 $(".comment-create-btn").click(createComment)
 $(".comment-edit-btn").click(showUpdateComment)
 $(".comment-delete-btn").click(destroyComment)
+$('.comment-reply-btn').click(createReply)
 
 function createComment () {
     let id = $(this).parent().parent().parent().attr('id')
@@ -20,6 +21,7 @@ function createComment () {
                 $(`#${id} #comments`).prepend(response.html)
                 $(`#${id} #comments .comment-edit-btn`).first().bind('click', showUpdateComment)
                 $(`#${id} #comments .comment-delete-btn`).first().bind('click', destroyComment)
+                $(`#${id} #comments .comment-reply-btn`).first().bind('click', createReply)
             } else {
                 $(`#${id} .comment-create-msg`).text(response.error)
             }
@@ -27,9 +29,9 @@ function createComment () {
     })
 }
 function showUpdateComment () {
-    let id = $(this).parent().parent().parent().parent().parent().attr('id')
-    let commId = $(this).parent().parent().attr('id')
-    let text = $(`#${id} #${commId} .text`)
+    let id = $(this).parent().parent().parent().parent().parent().parent().attr('id')
+    let commId = $(this).parent().parent().parent().attr('id')
+    let text = $(`#${id} #${commId} .text:first`)
     let btn = $(`#${id} #${commId} .comment-edit-btn`)
     btn.text('Save').toggle()
     $(".comment-edit-btn").toggle()
@@ -39,9 +41,9 @@ function showUpdateComment () {
     btn.bind('click', updateComment)
 }
 function updateComment () {
-    let id = $(this).parent().parent().parent().parent().parent().attr('id')
-    let commId = $(this).parent().parent().attr('id')
-    let text = $(`#${id} #${commId} .text`)
+    let id = $(this).parent().parent().parent().parent().parent().parent().attr('id')
+    let commId = $(this).parent().parent().parent().attr('id')
+    let text = $(`#${id} #${commId} .text:first`)
     let msg = $(`#${id} #${commId} .comment-msg`)
     let btn = $(`#${id} #${commId} .comment-edit-btn`)
     $.ajax({
@@ -68,8 +70,9 @@ function updateComment () {
     });
 }
 function destroyComment () {
-    let id = $(this).parent().parent().parent().parent().parent().attr('id')
-    let commId = $(this).parent().parent().attr('id')
+    let id = $(this).parent().parent().parent().parent().parent().parent().attr('id')
+    let commId = $(this).parent().parent().parent().attr('id')
+    console.log(id, commId)
     if (confirm("Delete comment?")) {
         $.ajax({
             url: `/comment/${commId}`,
@@ -85,4 +88,32 @@ function destroyComment () {
             }
         });
     }
+}
+
+function createReply() {
+    let id = $(this).parent().parent().attr('id')
+    console.log(id)
+    $.ajax({
+        url: '/reply/create',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            text: $(`#${id} .comment-text`).val(),
+            id: id,
+        },
+        success: function(response){
+            console.log('resr')
+            if (response.success) {
+                $(`#${id} .comment-create-msg`).text('Created successfully')
+                $(`#${id} .comment-text`).val('')
+                $(`#${id} #comments`).prepend(response.html)
+                $(`#${id} #comments .comment-edit-btn`).first().bind('click', showUpdateComment)
+                $(`#${id} #comments .comment-delete-btn`).first().bind('click', destroyComment)
+                $(`#${id} #comments .comment-reply-btn`).first().bind('click', createReply)
+            } else {
+                $(`#${id} .comment-create-msg`).text(response.error)
+            }
+        }
+    })
 }
