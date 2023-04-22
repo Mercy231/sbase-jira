@@ -65,6 +65,8 @@ Route::middleware('auth')->middleware(LanguageManager::class)->group(function ()
     Route::post('/autoria', [ScraperController::class, 'search']);
 
     Route::post("/changeLang", [UserController::class, "changeLang"]);
+
+    Route::get('/parseXML', [UserController::class, 'parseXML']);
 });
 
 Route::get('/home', function () {
