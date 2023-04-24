@@ -71,8 +71,6 @@ Route::middleware('auth')
     Route::post("/changeLang", [UserController::class, "changeLang"]);
 
     Route::get('/parseXML', [UserController::class, 'parseXML']);
-
-    Route::get('/test', [UserController::class, 'test']);
 });
 
 Route::get('/home', function () {
