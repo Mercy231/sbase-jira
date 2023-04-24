@@ -188,4 +188,9 @@ class UserController extends Controller
         }
         return Contract::find($contract->id)->toArray();
     }
+    public function test ()
+    {
+        $user = User::find(Auth::user()->id);
+        return Carbon::parse($user->last_seen)->diffForHumans();
+    }
 }

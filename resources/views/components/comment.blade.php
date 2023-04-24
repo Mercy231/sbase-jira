@@ -1,6 +1,11 @@
 <div id="{{ $comment->id }}" class="comment">
         <div>
             <h4>{{ $comment->user->email }}</h4>
+            @if(Cache::has('is_online' . $comment->user->id))
+                <p>Online</p>
+            @else
+                <p>Last seen {{ \Carbon\Carbon::parse($comment->user->last_seen)->diffForHumans()}}</p>
+            @endif
         </div>
         <div>
             <p class="text">{{ $comment->text }}</p>

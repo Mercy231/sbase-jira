@@ -7,6 +7,7 @@ use App\Http\Controllers\ScraperController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAuth;
 use App\Http\Middleware\LanguageManager;
+use App\Http\Middleware\LastSeenUserActivity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -47,7 +48,10 @@ Route::get('/email/verification-notification', function () {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::middleware('auth')->middleware(LanguageManager::class)->group(function () {
+Route::middleware('auth')
+    ->middleware(LanguageManager::class)
+    ->middleware(LastSeenUserActivity::class)
+    ->group(function () {
     Route::get('/posts', [PostController::class, 'showPosts'])
         ->name('posts');
 
@@ -59,7 +63,7 @@ Route::middleware('auth')->middleware(LanguageManager::class)->group(function ()
     Route::patch('/comment/{id}', [CommentController::class, 'update']);
     Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
 
-    Route::post('/reply/create', [ReplyController::class, 'create']);
+    Route::post('/reply/create', [CommentController::class, 'createReply']);
 
     Route::get('/autoria', [ScraperController::class, 'index']);
     Route::post('/autoria', [ScraperController::class, 'search']);
@@ -67,6 +71,8 @@ Route::middleware('auth')->middleware(LanguageManager::class)->group(function ()
     Route::post("/changeLang", [UserController::class, "changeLang"]);
 
     Route::get('/parseXML', [UserController::class, 'parseXML']);
+
+    Route::get('/test', [UserController::class, 'test']);
 });
 
 Route::get('/home', function () {

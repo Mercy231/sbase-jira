@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckAuth;
 use App\Http\Middleware\LanguageManager;
+use App\Http\Middleware\LastSeenUserActivity;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -39,7 +40,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            LanguageManager::class
+            LanguageManager::class,
+            LastSeenUserActivity::class,
         ],
 
         'api' => [
