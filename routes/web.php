@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReplyController;
@@ -63,7 +64,7 @@ Route::middleware('auth')
     Route::patch('/comment/{id}', [CommentController::class, 'update']);
     Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
 
-    Route::post('/reply/create', [CommentController::class, 'createReply']);
+    Route::post('/reply/create', [CommentController::class, 'create']);
 
     Route::get('/autoria', [ScraperController::class, 'index']);
     Route::post('/autoria', [ScraperController::class, 'search']);
@@ -71,6 +72,9 @@ Route::middleware('auth')
     Route::post("/changeLang", [UserController::class, "changeLang"]);
 
     Route::get('/parseXML', [UserController::class, 'parseXML']);
+
+    Route::get('/admin/stats', [AdminController::class, 'index']);
+    Route::get('/admin/get/stats', [AdminController::class, 'stats']);
 });
 
 Route::get('/home', function () {

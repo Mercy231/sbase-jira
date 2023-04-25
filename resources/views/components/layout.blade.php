@@ -8,7 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./public/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('/public/css/style.css') }}">
 </head>
 <body>
     <div class="header">
@@ -18,10 +19,11 @@
         </select>
     </div>
     @yield('body')
-    <script src="./public/js/post.js"></script>
-    <script src="./public/js/comment.js"></script>
-    <script src="./public/js/autoria.js"></script>
-    <script src="./public/js/register.js"></script>
-    <script src="./public/js/lang.js"></script>
+    <script src="{{ asset('/public/js/post.js') }}"></script>
+    <script src="{{ asset('/public/js/comment.js') }}"></script>
+    <script src="{{ asset('/public/js/autoria.js') }}"></script>
+    <script src="{{ asset('/public/js/register.js') }}"></script>
+    <script src="{{ asset('/public/js/lang.js') }}"></script>
+    <script src="{{ asset('/public/js/admin/stats.js') }}"></script>
 </body>
 </html>

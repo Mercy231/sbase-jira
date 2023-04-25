@@ -13,6 +13,7 @@ function createComment () {
             "_token": $('meta[name="csrf-token"]').attr('content'),
             text: $(`#${id} .comment-text`).val(),
             id: id,
+            reply: false,
         },
         success: function(response){
             if (response.success) {
@@ -101,6 +102,7 @@ function createReply() {
             "_token": $('meta[name="csrf-token"]').attr('content'),
             text: $(`#${id} .comment-text`).val(),
             id: id,
+            reply: true,
         },
         success: function(response){
             console.log('resr')

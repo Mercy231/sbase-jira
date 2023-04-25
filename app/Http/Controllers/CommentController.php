@@ -19,11 +19,19 @@ class CommentController extends Controller
         if ($validator->stopOnFirstFailure()->fails()) {
             return response()->json(['success' => false, 'error' => $validator->errors()->first()]);
         }
-        $comment = Comment::create([
-            'post_id' => $request->id,
-            'user_id' => Auth::user()->id,
-            'text' => $request->text,
-        ]);
+        if ($request->reply) {
+            $comment = Comment::create([
+                'comment_id' => $request->id,
+                'user_id' => Auth::user()->id,
+                'text' => $request->text,
+            ]);
+        } else {
+            $comment = Comment::create([
+                'post_id' => $request->id,
+                'user_id' => Auth::user()->id,
+                'text' => $request->text,
+            ]);
+        }
         $html = view('components.comment')->with(['comment' => $comment])->render();
         return response()->json(['success' => true, 'html' => $html]);
     }
@@ -51,21 +59,21 @@ class CommentController extends Controller
             return response()->json(['success' => false]);
         }
     }
-    public function createReply (Request $request)
-    {
-        $fields = $request->only('text');
-        $validator = Validator::make( $fields, [
-            'text' => 'required|min:1',
-        ]);
-        if ($validator->stopOnFirstFailure()->fails()) {
-            return response()->json(['success' => false, 'error' => $validator->errors()->first()]);
-        }
-        $comment = Comment::create([
-            'comment_id' => $request->id,
-            'user_id' => Auth::user()->id,
-            'text' => $request->text,
-        ]);
-        $html = view('components.comment')->with(['comment' => $comment])->render();
-        return response()->json(['success' => true, 'html' => $html]);
-    }
+//    public function createReply (Request $request)
+//    {
+//        $fields = $request->only('text');
+//        $validator = Validator::make( $fields, [
+//            'text' => 'required|min:1',
+//        ]);
+//        if ($validator->stopOnFirstFailure()->fails()) {
+//            return response()->json(['success' => false, 'error' => $validator->errors()->first()]);
+//        }
+//        $comment = Comment::create([
+//            'comment_id' => $request->id,
+//            'user_id' => Auth::user()->id,
+//            'text' => $request->text,
+//        ]);
+//        $html = view('components.comment')->with(['comment' => $comment])->render();
+//        return response()->json(['success' => true, 'html' => $html]);
+//    }
 }
