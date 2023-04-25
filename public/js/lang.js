@@ -8,7 +8,6 @@ $('#lang').change(function () {
             lang: $('#lang').val(),
         },
         success: function(response){
-            console.log(`Language selected: ${response.lang}`)
             if (response.success) location.reload()
         }
     })

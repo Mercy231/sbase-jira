@@ -10,6 +10,12 @@
     </div>
     <div class="stats">
         <div>
+            <div>
+                <label>From: </label>
+                <input id="dateFrom" type="date" required>
+                <label>To: </label>
+                <input id="dateTo" type="date" required>
+            </div>
             <canvas id="pieChart"></canvas>
         </div>
         <div>

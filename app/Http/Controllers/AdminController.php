@@ -15,7 +15,7 @@ class AdminController extends Controller
     {
         return view("admin.stats");
     }
-    public function stats ()
+    public function stats (Request $request)
     {
         $startOfDay = Carbon::now()->subWeek()->startOfWeek()->startOfDay();
         $endOfDay = Carbon::now()->subWeek()->startOfWeek()->endOfDay();
@@ -25,8 +25,10 @@ class AdminController extends Controller
             $endOfDay->next("day");
         }
 
-        $pieChart[] = count(Post::latest()->get()->toArray());
-        $pieChart[] = count(Comment::latest()->get()->toArray());
+        $dateFrom = Carbon::parse($request->dateFrom);
+        $dateTo = Carbon::parse($request->dateTo);
+        $pieChart[] = count(Post::whereBetween("created_at", [$dateFrom, $dateTo])->get()->toArray());
+        $pieChart[] = count(Comment::whereBetween("created_at", [$dateFrom, $dateTo])->get()->toArray());
 
         return response()->json(["pieChart" => $pieChart, "barChart" => $barChart]);
     }

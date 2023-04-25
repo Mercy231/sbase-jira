@@ -74,7 +74,7 @@ Route::middleware('auth')
     Route::get('/parseXML', [UserController::class, 'parseXML']);
 
     Route::get('/admin/stats', [AdminController::class, 'index']);
-    Route::get('/admin/get/stats', [AdminController::class, 'stats']);
+    Route::post('/admin/get/stats', [AdminController::class, 'stats']);
 });
 
 Route::get('/home', function () {

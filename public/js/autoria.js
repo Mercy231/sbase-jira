@@ -83,14 +83,6 @@ $("#price").change(function () {
 })
 
 $("#submit").click(function () {
-    console.log(
-        $("#car-type").val(),
-        $("#brand").val(),
-        $("#year-from").val(),
-        $("#year-to").val(),
-        $("#price-from").val(),
-        $("#price-to").val()
-    )
     $.ajax({
         url: `/autoria`,
         type: 'POST',
@@ -105,7 +97,6 @@ $("#submit").click(function () {
             priceTo: $("#price-to").val()
         },
         success: function(response){
-            console.log('success')
             $("#cars .car-item").remove()
             $("#cars").append(response.html)
         }

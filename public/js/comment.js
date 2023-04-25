@@ -73,7 +73,6 @@ function updateComment () {
 function destroyComment () {
     let id = $(this).parent().parent().parent().parent().parent().parent().attr('id')
     let commId = $(this).parent().parent().parent().attr('id')
-    console.log(id, commId)
     if (confirm("Delete comment?")) {
         $.ajax({
             url: `/comment/${commId}`,
@@ -93,7 +92,6 @@ function destroyComment () {
 
 function createReply() {
     let id = $(this).parent().parent().attr('id')
-    console.log(id)
     $.ajax({
         url: '/reply/create',
         type: 'POST',
@@ -105,7 +103,6 @@ function createReply() {
             reply: true,
         },
         success: function(response){
-            console.log('resr')
             if (response.success) {
                 $(`#${id} .comment-create-msg`).text('Created successfully')
                 $(`#${id} .comment-text`).val('')

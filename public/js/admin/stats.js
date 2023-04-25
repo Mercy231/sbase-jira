@@ -1,8 +1,13 @@
 $('#getStats').click(function () {
     $.ajax({
         url: '/admin/get/stats',
-        type: 'GET',
+        type: 'POST',
         dataType: 'json',
+        data: {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            dateFrom: $('#dateFrom').val(),
+            dateTo: $('#dateTo').val(),
+        },
         success: function(response){
             stats(response.pieChart, response.barChart)
         }
