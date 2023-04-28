@@ -37,7 +37,7 @@ class ApiController extends Controller
             return response()->json(["error" => "Invalid date fields"]);
         }
 
-        $key = "301a848f5899ffcadfdb64086f753108";
+        $key = env('WEATHERMAP_KEY');
         $getCoordsUrl = "http://api.openweathermap.org/geo/1.0/direct?q=$city,$country&appid=$key";
         $cords = json_decode(file_get_contents($getCoordsUrl), true);
         $lat = $cords[0]["lat"];
