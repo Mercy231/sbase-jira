@@ -9,11 +9,11 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
+        "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
         "maatwebsite/excel": "^3.1",
-        "weidner/goutte": "^2.3",
-        "ext-xlswriter": "*"
+        "weidner/goutte": "^2.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

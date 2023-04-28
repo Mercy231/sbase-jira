@@ -23,4 +23,8 @@
         </div>
     </form>
     {{ $error }}
+    <hr>
+    <div>
+        <a href="{{ url('/auth/twitter/redirect') }}">Login with twitter</a>
+    </div>
 @endsection

@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ScraperController;
+use App\Http\Controllers\TwitterController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAuth;
 use App\Http\Middleware\LanguageManager;
@@ -75,6 +77,12 @@ Route::middleware('auth')
 
     Route::get('/admin/stats', [AdminController::class, 'index']);
     Route::post('/admin/get/stats', [AdminController::class, 'stats']);
+
+    Route::get("/api/weather", [ApiController::class, "weather"]);
+    Route::post("/api/weather", [ApiController::class, "getWeather"]);
+
+    Route::get('/auth/twitter/redirect', [TwitterController::class, 'handle']);
+    Route::get('/auth/twitter/callback', [TwitterController::class, 'handleCallback']);
 });
 
 Route::get('/home', function () {
