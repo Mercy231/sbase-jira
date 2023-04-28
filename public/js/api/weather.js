@@ -1,19 +1,13 @@
-const fullCurrentDate = new Date()
-const day = ('0' + fullCurrentDate.getDate()).slice(-2)
-const month = ('0' + (fullCurrentDate.getMonth() + 1)).slice(-2)
-const year = fullCurrentDate.getFullYear()
-const currentDate = `${year}-${month}-${day}`
-
-const fullFinalDate = new Date()
-fullFinalDate.setDate(fullFinalDate.getDate() + 4)
-const finalDay = ('0' + fullFinalDate.getDate()).slice(-2)
-const finalMonth = ('0' + (fullFinalDate.getMonth() + 1)).slice(-2)
-const finalYear = fullFinalDate.getFullYear()
-const finalDate = `${finalYear}-${finalMonth}-${finalDay}`
-
+const currentDate = new Date().toISOString().slice(0, 10)
+const finalDate = createAftDate()
 const dateFrom = $('#weatherDateFrom')
 const dateTo = $('#weatherDateTo')
 
+function createAftDate () {
+    let date = new Date()
+    date.setDate(date.getDate() + 4)
+    return date.toISOString().slice(0, 10)
+}
 $(document).ready(function () {
     dateFrom.attr('min', currentDate).attr('max', finalDate)
     dateTo.attr('min', currentDate).attr('max', finalDate)
