@@ -3,7 +3,6 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ScraperController;
 use App\Http\Controllers\TwitterController;
