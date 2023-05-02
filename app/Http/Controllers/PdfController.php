@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\savePdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -77,6 +79,7 @@ class PdfController extends Controller
             $response["Accuracy Score"] = $parsed[6];
             $response["File"] = $file["name"];
             $data[] = $response;
+            dispatch(new savePdf($response));
         }
         $html = view('components.parsedItemPDF')->with(['data' => $data])->render();
         return response()->json(["html" => $html]);
