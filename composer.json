@@ -13,6 +13,8 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
         "maatwebsite/excel": "^3.1",
+        "smalot/pdfparser": "^2.4",
+        "spatie/pdf-to-text": "^1.52",
         "weidner/goutte": "^2.3"
     },
     "require-dev": {

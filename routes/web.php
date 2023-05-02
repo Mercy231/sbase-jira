@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ScraperController;
 use App\Http\Controllers\TwitterController;
@@ -82,6 +83,9 @@ Route::middleware('auth')
 
     Route::get('/auth/twitter/redirect', [TwitterController::class, 'handle']);
     Route::get('/auth/twitter/callback', [TwitterController::class, 'handleCallback']);
+
+    Route::get('/parsePDF', [PdfController::class, 'index']);
+    Route::post('/parsePDF', [PdfController::class, 'read']);
 });
 
 Route::get('/home', function () {

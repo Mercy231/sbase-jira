@@ -26,5 +26,6 @@
     <script src="{{ asset('/public/js/lang.js') }}"></script>
     <script src="{{ asset('/public/js/admin/stats.js') }}"></script>
     <script src="{{ asset('/public/js/api/weather.js') }}"></script>
+    <script src="{{ asset('/public/js/parsePDF.js') }}"></script>
 </body>
 </html>
