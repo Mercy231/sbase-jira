@@ -37,8 +37,8 @@ class SavePdf implements ShouldQueue
         $canvas->set_opacity(.2,"Multiply");
         $canvas->image(
             Storage::disk("public")->path("images/sbase-logo.png"),
-            $canvas->get_width()/2,
-            $canvas->get_height()/2,
+            $canvas->get_width() - 220,
+            $canvas->get_height() - 220,
             200,
             200
         );
